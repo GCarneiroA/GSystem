@@ -1,0 +1,49 @@
+
+cmake_minimum_required(VERSION 3.18.0 FATAL_ERROR)
+
+if (POLICY CMP0072)
+    cmake_policy(SET CMP0072 OLD)
+endif()
+
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+endif()
+
+project(GSystem)
+
+set(PACKAGE_VERSION_NAME "Rio")
+set(PACKAGE_VERSION_MAJOR "0")
+set(PACKAGE_VERSION_MINOR "1")
+set(PACKAGE_VERSION_PATCH "1")
+set(PACKAGE_VERSION_SUFFIX "dev") # either "dev" for development snapshot or "" (empty string)
+set(GSYSTEM_VERSION_PATCH "0") # number of patch release (e.g. "4" for the 0.1.4 release)
+
+set(GSYSTEM_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
+set(PACKAGE_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH}")
+set(PACKAGE_STRING "${PROJECT_NAME} ${PACKAGE_VERSION}")
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+set(QT_MIN_VERSION "5.15.0")
+find_package(Qt5 ${QT_MIN_VERSION} COMPONENTS
+    Core
+    Widgets
+    REQUIRED
+)
+#set(BOOST_MIN_VERSION "1.72")
+#find_package(Boost ${BOOST_MIN_VERSION} CONFIG REQUIRED)
+
+add_subdirectory(src)
+#add_subdirectory(data)

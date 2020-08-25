@@ -1,0 +1,3 @@
+
+#define GSystem_VERSION_MAJOR @GSystem_VERSION_MAJOR@
+#define GSystem_VERSION_MINOR @GSystem_VERSION_MINOR@
